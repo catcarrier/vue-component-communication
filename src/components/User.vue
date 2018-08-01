@@ -1,15 +1,19 @@
 <template>
     <div class="component">
         <h1>The User Component</h1>
-        <p>I'm an awesome User!</p>
+        <p>I'm an awesome User! My name is {{ name }}, age: {{ age }}</p>
         <button @click="changeName">Change my name</button>
         <hr>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
-                <app-user-detail :name="name"></app-user-detail>
+                <app-user-detail 
+                    :name="name"
+                    :userAge="age"
+                    @nameReset="name=$event"
+                    :resetFn="resetName"></app-user-detail>
             </div>
             <div class="col-xs-12 col-sm-6">
-                <app-user-edit></app-user-edit>
+                <app-user-edit :userAge="age" @ageEdited="age=$event"></app-user-edit>
             </div>
         </div>
     </div>
@@ -22,12 +26,16 @@
     export default {
         data: function() {
             return {
-                name: "Joe"
+                name: "Joe",
+                age: 36
             }
         },
         methods: {
             changeName() {
-                this.name="Ming"
+                this.name="Mongo";
+            },
+            resetName() {
+                this.name="Joshua";
             }
         },
         components: {
